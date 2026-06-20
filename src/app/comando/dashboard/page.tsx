@@ -26,7 +26,7 @@ export default function DashboardPage() {
         .single();
 
       if (data?.role !== 'ROOT' && data?.role !== 'COMANDO') {
-        router.push("/comando/perfil");
+        router.push("/perfil");
       } else {
         setProfile(data);
 
@@ -52,19 +52,19 @@ export default function DashboardPage() {
     <div className="min-h-screen bg-void flex items-center justify-center">
       <div className="text-center">
         <Activity className="mx-auto text-blood mb-4 animate-pulse" size={40} />
-        <p className="font-tech text-blood text-xs tracking-[0.3em] uppercase animate-pulse">Iniciando Sistemas de Mando...</p>
+        <p className="font-tech text-blood text-xs tracking-[0.3em] uppercase animate-pulse">Cargando Panel Administrativo...</p>
       </div>
     </div>
   );
 
   const commandCards = [
     {
-      title: "Gestión de Tropas",
-      subtitle: "VISUALIZAR PERSONAL, RANGOS Y EFECTIVOS",
+      title: "Gestión de Miembros",
+      subtitle: "VISUALIZAR PERSONAL, ROLES Y REGISTROS",
       href: "/comando/afiliados",
       icon: Users,
       stat: stats.users,
-      statLabel: "Efectivos",
+      statLabel: "Afiliados",
     },
     {
       title: "Redacción",
@@ -72,11 +72,11 @@ export default function DashboardPage() {
       href: "/comando/redaccion",
       icon: PenTool,
       stat: stats.posts,
-      statLabel: "Publicaciones",
+      statLabel: "Artículos",
     },
     {
-      title: "Intendencia",
-      subtitle: "ABASTECIMIENTO Y CONTROL DE TIENDA",
+      title: "Tienda y Logística",
+      subtitle: "CONTROL DE INVENTARIO Y PRODUCTOS",
       href: "/comando/intendencia",
       icon: Package,
       stat: stats.products,
@@ -87,7 +87,7 @@ export default function DashboardPage() {
   return (
     <main className="min-h-screen bg-void text-white p-6 md:p-12 relative overflow-hidden">
       {/* BG DECORATION */}
-      <div className="absolute top-0 right-0 font-shout text-[300px] text-white/[0.01] leading-none select-none pointer-events-none -translate-y-1/4">CMD</div>
+      <div className="absolute top-0 right-0 font-shout text-[300px] text-white/[0.01] leading-none select-none pointer-events-none -translate-y-1/4">UNC</div>
 
       <div className="max-w-6xl mx-auto relative z-10">
 
@@ -100,17 +100,17 @@ export default function DashboardPage() {
           <div>
             <div className="flex items-center gap-2 mb-3">
               <Shield size={14} className="text-blood" />
-              <span className="font-tech text-blood text-[10px] tracking-[0.3em] uppercase font-bold">Panel de Control</span>
+              <span className="font-tech text-blood text-[10px] tracking-[0.3em] uppercase font-bold">Gestión de Plataforma</span>
             </div>
-            <h1 className="font-shout text-4xl md:text-6xl uppercase leading-none">Puesto de Mando</h1>
+            <h1 className="font-shout text-4xl md:text-6xl uppercase leading-none">Panel Editorial</h1>
             <p className="font-tech text-gray-500 text-xs mt-3 uppercase tracking-wider">
-              Oficial al Mando: <span className="text-white font-bold">{profile?.nickname}</span>
+              Administrador: <span className="text-white font-bold">{profile?.nickname}</span>
               <span className="text-blood mx-2">·</span>
               <span className={`${profile?.role === 'ROOT' ? 'text-blood' : 'text-blue-400'}`}>{profile?.role}</span>
             </p>
           </div>
           <button
-            onClick={async () => { await supabase.auth.signOut(); router.push("/comando"); }}
+            onClick={async () => { await supabase.auth.signOut(); router.push("/"); }}
             className="flex items-center gap-2 font-tech text-xs text-steel hover:text-blood transition-colors mt-4 md:mt-0 group"
           >
             <LogOut size={14} className="group-hover:translate-x-0.5 transition-transform" />
@@ -126,8 +126,8 @@ export default function DashboardPage() {
           className="grid grid-cols-3 gap-4 mb-10"
         >
           {[
-            { icon: Users, label: "Efectivos", value: stats.users, color: "text-blue-400" },
-            { icon: FileText, label: "Publicaciones", value: stats.posts, color: "text-green-400" },
+            { icon: Users, label: "Afiliados", value: stats.users, color: "text-blue-400" },
+            { icon: FileText, label: "Artículos", value: stats.posts, color: "text-green-400" },
             { icon: ShoppingBag, label: "Productos", value: stats.products, color: "text-yellow-400" },
           ].map((s, i) => (
             <div key={i} className="border border-armor-light bg-paper-dark/50 p-4 md:p-5 flex items-center gap-4">

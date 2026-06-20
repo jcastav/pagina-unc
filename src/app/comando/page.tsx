@@ -4,7 +4,7 @@ import { useState } from "react";
 import { supabase } from "@/lib/supabaseClient";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
-import { ShieldAlert, Lock, User, Loader2 } from "lucide-react";
+import { Shield, Lock, User, Loader2 } from "lucide-react";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -57,7 +57,7 @@ export default function LoginPage() {
       if (role === 'ROOT' || role === 'COMANDO') {
         router.push("/comando/dashboard");
       } else {
-        router.push("/comando/perfil");
+        router.push("/perfil");
       }
     }
   };
@@ -92,10 +92,10 @@ export default function LoginPage() {
               className="mb-10 text-center"
             >
               <div className="w-16 h-16 mx-auto mb-6 border border-blood/30 bg-blood/10 flex items-center justify-center relative">
-                <ShieldAlert className="text-blood" size={28} />
+                <Shield className="text-blood" size={28} />
                 <div className="absolute -top-1 -right-1 w-2 h-2 bg-blood animate-pulse"></div>
               </div>
-              <h1 className="font-shout text-3xl text-white uppercase tracking-tight">Acceso Restringido</h1>
+              <h1 className="font-shout text-3xl text-white uppercase tracking-tight">Acceso Administrativo</h1>
               <p className="font-tech text-[10px] text-blood mt-3 tracking-[0.3em] uppercase">
                 Unión Nacionalista Colombiana
               </p>
@@ -171,7 +171,7 @@ export default function LoginPage() {
             {/* FOOTER NOTE */}
             <div className="mt-8 text-center">
               <p className="font-tech text-[9px] text-gray-600 tracking-wider">
-                SISTEMA PROTEGIDO · ACCESO SOLO A PERSONAL AUTORIZADO
+                SISTEMA INTEGRAL · USO EXCLUSIVO PARA ADMINISTRADORES
               </p>
             </div>
           </div>

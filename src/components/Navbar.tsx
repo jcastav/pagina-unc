@@ -7,14 +7,35 @@ import { motion, AnimatePresence } from 'framer-motion';
 import {
   Menu, X, ChevronRight, Share2,
   Instagram, Facebook, Twitter, Youtube, Send, AtSign, Music2,
-  ChevronDown, ExternalLink, Sparkles
+  ChevronDown, ExternalLink, Sparkles, User, LogOut
 } from 'lucide-react';
+import { useEffect } from 'react';
+import { supabase } from '@/lib/supabaseClient';
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [showSocials, setShowSocials] = useState(false);
+  const [user, setUser] = useState<any>(null);
+
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setUser(session?.user ?? null);
+    });
+
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUser(session?.user ?? null);
+    });
+
+    return () => subscription.unsubscribe();
+  }, []);
+
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+    window.location.href = '/';
+  };
 
   const navLinks = [
+    { name: 'Nosotros', href: '/nosotros' },
     { name: 'Artículos', href: '/articulos' },
     { name: 'Doctrina', href: '/doctrina' },
     { name: 'Tienda', href: '/tienda' },
@@ -70,6 +91,19 @@ export default function Navbar() {
               <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-blood transition-all group-hover:w-full"></span>
             </Link>
           ))}
+
+          {/* AUTH SECTION */}
+          {user && (
+            <div className="flex items-center gap-4 ml-4 pl-4 border-l border-armor-light">
+              <Link href="/perfil" className="flex items-center gap-2 font-heavy text-[10px] uppercase tracking-widest text-white hover:text-blood transition-colors">
+                <User size={14} />
+                <span>Mi Cuenta</span>
+              </Link>
+              <button onClick={handleLogout} className="text-steel hover:text-blood transition-colors">
+                <LogOut size={16} />
+              </button>
+            </div>
+          )}
 
           {/* SOCIAL HUB DROPDOWN */}
           <div className="relative" onMouseEnter={() => setShowSocials(true)} onMouseLeave={() => setShowSocials(false)}>
@@ -153,6 +187,29 @@ export default function Navbar() {
                   <ChevronRight size={20} className="text-armor" />
                 </Link>
               ))}
+
+              {/* Botones de Cuenta en Móvil */}
+              {user && (
+                <div className="mt-4 pt-4 border-t border-armor/50">
+                  <div className="space-y-4">
+                    <Link 
+                      href="/perfil" 
+                      onClick={() => setIsOpen(false)}
+                      className="flex items-center gap-3 font-heavy text-lg uppercase text-white hover:text-blood"
+                    >
+                      <User size={20} />
+                      <span>Mi Cuenta</span>
+                    </Link>
+                    <button 
+                      onClick={handleLogout}
+                      className="flex items-center gap-3 font-heavy text-lg uppercase text-steel hover:text-blood w-full text-left"
+                    >
+                      <LogOut size={20} />
+                      <span>Cerrar Sesión</span>
+                    </button>
+                  </div>
+                </div>
+              )}
 
               {/* MOBILE SOCIAL HUB */}
               <div className="py-6 space-y-4">

@@ -13,7 +13,7 @@ export default function RedaccionPage() {
   return (
     <Suspense fallback={
       <div className="min-h-screen bg-void flex items-center justify-center font-tech text-blood animate-pulse text-xs tracking-[0.3em] uppercase">
-        Cargando Redacción...
+        Cargando Centro Editorial...
       </div>
     }>
       <RedaccionContent />
@@ -50,7 +50,7 @@ function RedaccionContent() {
 
       if (profile?.role !== 'ROOT' && profile?.role !== 'COMANDO') {
         alert("ACCESO DENEGADO.");
-        router.push("/comando/perfil");
+        router.push("/perfil");
         return;
       }
 
@@ -165,15 +165,15 @@ function RedaccionContent() {
         <div className="mb-8">
           <Link href="/comando/dashboard" className="inline-flex items-center gap-2 font-tech text-[10px] text-steel hover:text-white transition-colors uppercase tracking-widest mb-4 group">
             <ArrowLeft size={12} className="group-hover:-translate-x-1 transition-transform" />
-            Volver al Comando
+            Volver al Panel
           </Link>
           <div className="border-b border-armor-light pb-4 flex justify-between items-end">
             <div>
               <h1 className="font-shout text-3xl md:text-5xl uppercase leading-none">
-                {editId ? "Editar Expediente" : "Nuevo Documento"}
+                {editId ? "Editar Artículo" : "Nuevo Artículo"}
               </h1>
               <p className="font-tech text-[10px] text-gray-500 mt-2 uppercase tracking-widest">
-                {editId ? `ID: ${editId.slice(0, 8)}...` : "Creando nuevo registro"}
+                {editId ? `REF: ${editId.slice(0, 8)}...` : "Redacción de nuevo contenido"}
               </p>
             </div>
             {/* CATEGORY PREVIEW BADGE */}
@@ -192,7 +192,7 @@ function RedaccionContent() {
           >
             <AlertTriangle className="text-blood shrink-0 mt-0.5" size={18} />
             <div>
-              <h4 className="text-blood font-heavy text-sm uppercase mb-1">Orden de Corrección del Mando</h4>
+              <h4 className="text-blood font-heavy text-sm uppercase mb-1">Observaciones Editoriales</h4>
               <p className="text-gray-300 font-body text-sm leading-relaxed">{adminFeedback}</p>
             </div>
           </motion.div>

@@ -1,7 +1,7 @@
-import { createClient } from '@supabase/supabase-js';
+import { createBrowserClient } from '@supabase/ssr'
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
 
-//cliente único para conectar con la base de datos
-export const supabase = createClient(supabaseUrl, supabaseAnonKey);
+// Cliente de navegador que gestiona cookies automáticamente para sincronización con el Middleware
+export const supabase = createBrowserClient(supabaseUrl, supabaseAnonKey);

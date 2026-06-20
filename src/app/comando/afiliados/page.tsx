@@ -110,14 +110,14 @@ export default function GestionTropasPage() {
             <div>
               <div className="flex items-center gap-2 mb-2">
                 <span className="w-2 h-2 bg-blood rounded-full animate-pulse"></span>
-                <span className="font-tech text-blood text-[10px] tracking-[0.3em] uppercase font-bold">Modo Administrador</span>
+                <span className="font-tech text-blood text-[10px] tracking-[0.3em] uppercase font-bold">Administración Institucional</span>
               </div>
-              <h1 className="font-shout text-3xl md:text-5xl uppercase leading-none">Gestión de Usuarios</h1>
+              <h1 className="font-shout text-3xl md:text-5xl uppercase leading-none">Gestión de Miembros</h1>
             </div>
             <div className="text-right flex flex-col md:items-end gap-2">
-              <span className="font-tech text-steel text-xs uppercase">Total Efectivos: <span className="text-white font-bold">{profiles.length}</span></span>
+              <span className="font-tech text-steel text-xs uppercase">Miembros Registrados: <span className="text-white font-bold">{profiles.length}</span></span>
               <button
-                onClick={async () => { await supabase.auth.signOut(); router.push("/comando"); }}
+                onClick={async () => { await supabase.auth.signOut(); router.push("/"); }}
                 className="flex items-center gap-2 font-tech text-xs text-steel hover:text-blood transition-colors group"
               >
                 <LogOut size={12} className="group-hover:translate-x-0.5 transition-transform" />
@@ -132,7 +132,7 @@ export default function GestionTropasPage() {
           <Search size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-steel" />
           <input
             type="text"
-            placeholder="Buscar por nickname o ciudad..."
+            placeholder="Buscar por usuario o ciudad..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             className="w-full bg-paper-dark/50 border border-armor-light pl-12 pr-4 py-3 text-white font-tech text-sm focus:border-blood outline-none transition-all focus:shadow-[0_0_15px_rgba(239,68,68,0.05)] placeholder-gray-600"
@@ -144,48 +144,48 @@ export default function GestionTropasPage() {
           <table className="w-full text-left font-tech text-sm">
             <thead className="bg-armor/50 text-steel uppercase tracking-wider text-[10px]">
               <tr>
-                <th className="p-4">Identidad</th>
-                <th className="p-4">Rango</th>
+                <th className="p-4">Usuario</th>
+                <th className="p-4">Rol / Nivel</th>
                 <th className="p-4">Ubicación</th>
                 <th className="p-4">Contacto</th>
-                <th className="p-4">Motivo</th>
+                <th className="p-4">Motivación</th>
                 <th className="p-4">Acciones</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-armor/50">
-              {filteredProfiles.map((soldado, index) => (
+              {filteredProfiles.map((miembro, index) => (
                 <motion.tr
-                  key={soldado.id}
+                  key={miembro.id}
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ delay: index * 0.03 }}
-                  className={`hover:bg-void/50 transition-colors group ${soldado.role === 'ROOT' ? 'border-l-2 border-l-blood' :
-                      soldado.role === 'COMANDO' ? 'border-l-2 border-l-blue-500' : ''
+                  className={`hover:bg-void/50 transition-colors group ${miembro.role === 'ROOT' ? 'border-l-2 border-l-blood' :
+                      miembro.role === 'COMANDO' ? 'border-l-2 border-l-blue-500' : ''
                     }`}
                 >
                   <td className="p-4">
-                    <span className="font-bold text-white text-base block">{soldado.nickname}</span>
-                    <span className="text-[9px] text-gray-500 font-normal">{new Date(soldado.created_at).toLocaleDateString()}</span>
+                    <span className="font-bold text-white text-base block">{miembro.nickname}</span>
+                    <span className="text-[9px] text-gray-500 font-normal">{new Date(miembro.created_at).toLocaleDateString()}</span>
                   </td>
                   <td className="p-4">
-                    <span className={`inline-block px-2 py-1 text-[9px] font-bold border uppercase tracking-wider ${roleColors[soldado.role] || roleColors.AFILIADO}`}>
-                      {soldado.role}
+                    <span className={`inline-block px-2 py-1 text-[9px] font-bold border uppercase tracking-wider ${roleColors[miembro.role] || roleColors.AFILIADO}`}>
+                      {miembro.role}
                     </span>
                   </td>
-                  <td className="p-4 text-gray-300 uppercase text-xs">{soldado.city}</td>
-                  <td className="p-4 text-steel text-xs">{soldado.phone}</td>
+                  <td className="p-4 text-gray-300 uppercase text-xs">{miembro.city}</td>
+                  <td className="p-4 text-steel text-xs">{miembro.phone}</td>
                   <td className="p-4 max-w-xs">
-                    <div className="truncate text-gray-500 italic text-[11px]" title={soldado.reason}>
-                      &ldquo;{soldado.reason}&rdquo;
+                    <div className="truncate text-gray-500 italic text-[11px]" title={miembro.reason}>
+                      &ldquo;{miembro.reason}&rdquo;
                     </div>
                   </td>
                   <td className="p-4">
-                    {soldado.role !== 'ROOT' ? (
+                    {miembro.role !== 'ROOT' ? (
                       <div className="relative">
                         <select
                           className="appearance-none bg-void/50 border border-armor-light text-xs p-2 pr-8 focus:border-blood outline-none cursor-pointer hover:border-blood/50 transition-colors text-white"
-                          value={soldado.role}
-                          onChange={(e) => updateRole(soldado.id, e.target.value)}
+                          value={miembro.role}
+                          onChange={(e) => updateRole(miembro.id, e.target.value)}
                         >
                           <option value="AFILIADO">AFILIADO</option>
                           <option value="COMANDO">COMANDO</option>
@@ -195,7 +195,7 @@ export default function GestionTropasPage() {
                       </div>
                     ) : (
                       <span className="font-tech text-[9px] text-gray-600 flex items-center gap-1">
-                        <Shield size={10} /> INMUTABLE
+                        <Shield size={10} /> PROTEGIDO
                       </span>
                     )}
                   </td>

@@ -68,22 +68,21 @@ export default function AfiliacionForm() {
       
       <div className="bg-armor/50 p-4 border-l-4 border-blood mb-6">
         <p className="font-tech text-xs text-gray-300">
-          <strong className="text-white">PROTOCOLO DE ANONIMATO:</strong> NO REQUERIMOS TU NOMBRE REAL NI CORREO. 
-          CREA UN ALIAS (NICKNAME) ÚNICO.
+          <strong className="text-white">IDENTIDAD INSTITUCIONAL:</strong> No es necesario su nombre legal ni correo personal. 
+          Use un nombre de usuario (nickname) único para su gestión en la plataforma.
         </p>
       </div>
 
       <div className="space-y-4">
         {/* NICKNAME LIBERADO */}
         <div>
-          <label className="block font-tech text-xs text-steel mb-1 uppercase">Alias / Nickname (Tu Identidad)</label>
+          <label className="block font-tech text-xs text-steel mb-1 uppercase">Nombre de Usuario</label>
           <input 
             required 
             name="nickname" 
             type="text" 
-            // CAMBIO: Quité 'uppercase'. Ahora permite escribir libremente.
             className="w-full bg-void border border-armor p-3 text-white font-heavy tracking-widest text-sm focus:border-blood focus:outline-none transition-colors" 
-            placeholder="Ej: Agente_01" 
+            placeholder="Ej: Patriota_26" 
           />
         </div>
 
@@ -98,24 +97,24 @@ export default function AfiliacionForm() {
             className="w-full bg-void border border-armor p-3 text-white font-tech text-sm focus:border-blood focus:outline-none transition-colors" 
             placeholder="••••••••" 
           />
-          <span className="text-[10px] text-gray-600 font-tech">Mínimo 6 caracteres. No la olvides.</span>
+          <span className="text-[10px] text-gray-600 font-tech">Mínimo 6 caracteres.</span>
         </div>
 
         {/* DATOS OBLIGATORIOS */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-            <label className="block font-tech text-xs text-steel mb-1 uppercase">Ciudad Base</label>
+            <label className="block font-tech text-xs text-steel mb-1 uppercase">Ciudad de Residencia</label>
             <input required name="city" type="text" className="w-full bg-void border border-armor p-3 text-white font-body text-sm focus:border-blood focus:outline-none transition-colors" placeholder="Ej: Bogotá" />
             </div>
             <div>
-            <label className="block font-tech text-xs text-steel mb-1 uppercase">Número</label>
+            <label className="block font-tech text-xs text-steel mb-1 uppercase">Número de Contacto</label>
             <input required name="phone" type="tel" className="w-full bg-void border border-armor p-3 text-white font-body text-sm focus:border-blood focus:outline-none transition-colors" placeholder="+57 ..." />
             </div>
         </div>
 
         <div>
-          <label className="block font-tech text-xs text-steel mb-1 uppercase">Motivo de Ingreso</label>
-          <textarea name="reason" rows={2} className="w-full bg-void border border-armor p-3 text-white font-body text-sm focus:border-blood focus:outline-none transition-colors" placeholder="Breve descripción..."></textarea>
+          <label className="block font-tech text-xs text-steel mb-1 uppercase">Motivación para la Afiliación</label>
+          <textarea name="reason" rows={2} className="w-full bg-void border border-armor p-3 text-white font-body text-sm focus:border-blood focus:outline-none transition-colors" placeholder="Describa brevemente su interés en el movimiento..."></textarea>
         </div>
       </div>
 
@@ -125,22 +124,22 @@ export default function AfiliacionForm() {
         disabled={loading}
         className="w-full bg-white text-black font-heavy uppercase py-4 hover:bg-blood hover:text-white transition-colors disabled:opacity-50 disabled:cursor-not-allowed border-2 border-white"
       >
-        {loading ? "GENERANDO IDENTIDAD..." : "CREAR CUENTA SEGURA"}
+        {loading ? "PROCESANDO SOLICITUD..." : "REGISTRAR AFILIACIÓN"}
       </button>
 
       {status === "success" && (
-        <div className="p-4 border border-green-900 bg-green-900/20 text-green-500 font-tech text-xs text-center">
-            [ BIENVENIDO ] TU CUENTA HA SIDO CREADA. YA ERES PARTE DE LA RED.
+        <div className="p-4 border border-green-900 bg-green-900/20 text-green-500 font-tech text-xs text-center uppercase tracking-widest">
+            SOLICITUD PROCESADA. AHORA PUEDE ACCEDER A SU CUENTA.
         </div>
       )}
       {status === "nickname_taken" && (
-        <div className="p-4 border border-yellow-900 bg-yellow-900/20 text-yellow-500 font-tech text-xs text-center">
-            [ ERROR ] ESE ALIAS YA ESTÁ EN USO. ELIGE OTRO.
+        <div className="p-4 border border-yellow-900 bg-yellow-900/20 text-yellow-500 font-tech text-xs text-center uppercase tracking-widest">
+            ERROR: EL NOMBRE DE USUARIO YA SE ENCUENTRA REGISTRADO.
         </div>
       )}
       {status === "error" && (
-        <div className="p-4 border border-red-900 bg-red-900/20 text-red-500 font-tech text-xs text-center">
-            [ FALLO CRÍTICO ] ERROR EN EL NODO DE REGISTRO. INTENTA DE NUEVO.
+        <div className="p-4 border border-red-900 bg-red-900/20 text-red-500 font-tech text-xs text-center uppercase tracking-widest">
+            ERROR: NO SE PUDO COMPLETAR EL REGISTRO. INTENTE MÁS TARDE.
         </div>
       )}
 

@@ -2,8 +2,9 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { ShoppingCart, Package, ShieldAlert } from "lucide-react";
+import { ShoppingCart, Package, Instagram, ExternalLink, ArrowRight } from "lucide-react";
 
+const INSTAGRAM_URL = 'https://www.instagram.com/unionnacionalista_tienda?igsh=MTRhMG93MHB0cjhleg==';
 const WHATSAPP_NUMBER = '573000000000';
 
 interface SupplyStoreProps {
@@ -14,10 +15,56 @@ export default function SupplyStore({ products }: SupplyStoreProps) {
 
     if (!products || products.length === 0) {
         return (
-            <section className="py-20 px-6 border-b-2 border-armor-light bg-void text-center scanline">
-                <ShieldAlert className="mx-auto text-armor mb-6" size={48} />
-                <h3 className="font-heavy text-3xl text-steel uppercase mb-3 tracking-widest">Suministros Agotados</h3>
-                <p className="font-tech text-xs text-gray-600 max-w-sm mx-auto uppercase tracking-tighter">[ EL REABASTECIMIENTO ESTÁ EN CURSO. POR FAVOR, REGRESE MÁS TARDE ]</p>
+            <section className="py-24 px-6 md:px-16 border-b-2 border-armor-light bg-void relative overflow-hidden">
+                {/* DECORATIVE BACKGROUND */}
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full opacity-5 pointer-events-none flex items-center justify-center">
+                    <Instagram size={600} />
+                </div>
+                
+                <div className="max-w-4xl mx-auto text-center relative z-10">
+                    <motion.div
+                        initial={{ opacity: 0, y: 30 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.8 }}
+                    >
+                        <div className="w-20 h-20 bg-gradient-to-tr from-purple-600 via-pink-600 to-yellow-500 rounded-2xl mx-auto mb-10 flex items-center justify-center shadow-[0_0_40px_rgba(219,39,119,0.3)] border border-white/20">
+                            <Instagram className="text-white" size={40} />
+                        </div>
+                        <span className="font-tech text-blood text-[10px] tracking-[0.5em] uppercase font-bold block mb-4">Catálogo Externo Activo</span>
+                        <h2 className="font-shout text-4xl md:text-7xl text-white uppercase leading-none mb-8">
+                            Tienda de <br /> Suministros
+                        </h2>
+                        <p className="font-body text-gray-400 text-lg md:text-xl leading-relaxed mb-12 max-w-2xl mx-auto border-l border-r border-armor-light px-8">
+                            Nuestra plataforma de inventario web está en mantenimiento. Actualmente gestionamos el catálogo completo y pedidos exclusivos a través de nuestra cuenta oficial de Instagram.
+                        </p>
+                        
+                        <div className="flex flex-col md:flex-row items-center justify-center gap-6">
+                            <a 
+                                href={INSTAGRAM_URL}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="group relative overflow-hidden bg-white text-void px-12 py-5 font-heavy text-xs uppercase tracking-[0.3em] hover:bg-blood hover:text-white transition-all flex items-center gap-3 w-full md:w-auto"
+                            >
+                                <Instagram size={18} />
+                                Ver Catálogo en Instagram
+                                <ExternalLink size={16} className="opacity-50 group-hover:opacity-100 transition-opacity" />
+                                <div className="absolute top-0 left-[-100%] w-full h-full bg-gradient-to-r from-transparent via-void/5 to-transparent transition-all duration-1000 group-hover:left-[100%]"></div>
+                            </a>
+                            <p className="font-tech text-[9px] text-steel uppercase tracking-widest">
+                                Envíos nacionales <span className="text-blood">100% Garantizados</span>
+                            </p>
+                        </div>
+                    </motion.div>
+                </div>
+
+                {/* MOCK GRID PREVIEW */}
+                <div className="mt-24 grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-2 opacity-20 pointer-events-none grayscale hover:grayscale-0 transition-all duration-1000">
+                    {[1, 2, 3, 4, 5, 6].map(i => (
+                        <div key={i} className="aspect-square bg-armor/30 border border-armor-light flex items-center justify-center relative overflow-hidden group">
+                           <Instagram size={24} className="text-blood opacity-20" />
+                        </div>
+                    ))}
+                </div>
             </section>
         );
     }
@@ -29,7 +76,7 @@ export default function SupplyStore({ products }: SupplyStoreProps) {
                 <div className="max-w-xl">
                     <span className="font-tech text-blood text-[10px] tracking-[0.4em] uppercase font-bold block mb-4">Logística y Equipo</span>
                     <h2 className="font-heavy text-4xl md:text-6xl text-white uppercase leading-none mb-4">
-                        Intendencia
+                        Tienda Oficial
                     </h2>
                     <p className="font-body text-gray-400 text-sm leading-relaxed">
                         Accede al equipamiento oficial del movimiento. Cada adquisición contribuye directamente al financiamiento de nuestras actividades y logística operativa.

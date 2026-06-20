@@ -29,7 +29,7 @@ export default function IntendenciaPage() {
 
       if (profile?.role !== 'ROOT' && profile?.role !== 'COMANDO') {
         alert("ACCESO DENEGADO: SOLO PERSONAL DE LOGÍSTICA.");
-        router.push("/comando/perfil");
+        router.push("/perfil");
       } else {
         // Fetch existing products
         const { data: prods } = await supabase
@@ -140,14 +140,14 @@ export default function IntendenciaPage() {
         <div className="mb-8">
           <Link href="/comando/dashboard" className="inline-flex items-center gap-2 font-tech text-[10px] text-steel hover:text-white transition-colors uppercase tracking-widest mb-4 group">
             <ArrowLeft size={12} className="group-hover:-translate-x-1 transition-transform" />
-            Volver al Comando
+            Volver al Panel
           </Link>
           <div className="border-b border-armor-light pb-4">
             <div className="flex items-center gap-2 mb-2">
               <Package size={14} className="text-blood" />
-              <span className="font-tech text-blood text-[10px] tracking-[0.3em] uppercase font-bold">Logística</span>
+              <span className="font-tech text-blood text-[10px] tracking-[0.3em] uppercase font-bold">Logística e Inventario</span>
             </div>
-            <h1 className="font-shout text-3xl md:text-5xl uppercase leading-none">Ingreso de Material</h1>
+            <h1 className="font-shout text-3xl md:text-5xl uppercase leading-none">Gestión de Tienda</h1>
           </div>
         </div>
 
@@ -159,13 +159,13 @@ export default function IntendenciaPage() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                   <label className="font-tech text-[10px] text-steel mb-2 uppercase tracking-widest flex items-center gap-2">
-                    <Package size={10} className="text-blood" /> Nombre del Ítem
+                    <Package size={10} className="text-blood" /> Nombre del Producto
                   </label>
-                  <input required name="name" type="text" className="w-full bg-void/50 border border-armor-light p-4 text-white font-bold text-lg focus:border-blood outline-none uppercase placeholder-gray-700 transition-all" placeholder="EJ: GORRA OFICIAL V1" />
+                  <input required name="name" type="text" className="w-full bg-void/50 border border-armor-light p-4 text-white font-bold text-lg focus:border-blood outline-none uppercase placeholder-gray-700 transition-all" placeholder="EJ: CAMISETA INSTITUCIONAL" />
                 </div>
                 <div>
                   <label className="font-tech text-[10px] text-steel mb-2 uppercase tracking-widest flex items-center gap-2">
-                    <DollarSign size={10} className="text-blood" /> Costo Unitario (COP)
+                    <DollarSign size={10} className="text-blood" /> Precio Unitario (COP)
                   </label>
                   <input required name="price" type="number" className="w-full bg-void/50 border border-armor-light p-4 text-white font-tech text-lg focus:border-blood outline-none placeholder-gray-700 transition-all" placeholder="50000" />
                 </div>
@@ -187,7 +187,7 @@ export default function IntendenciaPage() {
 
               <div>
                 <label className="font-tech text-[10px] text-steel mb-2 uppercase tracking-widest flex items-center gap-2">
-                  <Camera size={10} className="text-blood" /> Registro Visual
+                  <Camera size={10} className="text-blood" /> Fotografía del Producto
                 </label>
                 <div className="flex items-start gap-6">
                   <input required type="file" accept="image/*" onChange={handleImageChange} className="w-full font-tech text-xs text-gray-500 file:mr-4 file:py-2 file:px-4 file:border-0 file:bg-armor-light file:text-white hover:file:bg-blood file:cursor-pointer file:transition-colors cursor-pointer" />
