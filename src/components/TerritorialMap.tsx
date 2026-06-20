@@ -13,23 +13,23 @@ export default function TerritorialMap() {
                 <div className="absolute bottom-10 right-10 w-96 h-96 border border-white -rotate-12"></div>
             </div>
 
-            <div className="max-w-6xl mx-auto flex flex-col lg:flex-row items-center gap-16 relative z-10">
+            <div className="max-w-6xl mx-auto flex flex-col-reverse lg:flex-row items-center gap-12 lg:gap-16 relative z-10 font-sans">
                 
                 {/* TEXT CONTENT */}
-                <div className="lg:w-1/2 space-y-8">
-                    <div>
+                <div className="w-full lg:w-1/2 space-y-8">
+                    <div className="text-center lg:text-left">
                         <span className="font-tech text-blood text-[10px] tracking-[0.5em] uppercase font-bold block mb-4">Despliegue Institucional</span>
                         <h2 className="font-shout text-4xl md:text-6xl text-white uppercase leading-none mb-6">
-                            Estructura <br /> Territorial
+                            Estructura <br className="hidden lg:block" /> Territorial
                         </h2>
                     </div>
 
-                    <p className="font-body text-gray-400 text-lg leading-relaxed">
-                        Nuestra presencia nacional se organiza a través de un sistema de <span className="text-white font-bold">ocho divisiones gubernamentales</span>. 
+                    <p className="font-body text-gray-400 text-lg leading-relaxed text-center lg:text-left border-t border-armor-light pt-8 lg:border-t-0 lg:pt-0">
+                        Nuestra presencia nacional se organiza a través de un sistema de <span className="text-white font-bold">ocho divisiones estratégicas</span>. 
                         Este modelo permite una gestión descentralizada pero coordinada, adaptando nuestra labor institucional a las necesidades geográficas e históricas de cada región colombiana.
                     </p>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
                         {[
                             { icon: <MapPin size={18} />, title: "8 DIVISIONES", desc: "Cobertura total del territorio" },
                             { icon: <Shield size={18} />, title: "COORDINACIÓN", desc: "Gestión regional autónoma" },
@@ -42,7 +42,7 @@ export default function TerritorialMap() {
                                 transition={{ delay: i * 0.1 }}
                                 viewport={{ once: true }}
                                 key={i} 
-                                className="flex items-start gap-4 p-4 border border-armor-light bg-void/50 hover:border-blood transition-colors group"
+                                className="flex items-start gap-4 p-5 border border-armor-light bg-void/50 hover:border-blood transition-colors group"
                             >
                                 <div className="text-blood mt-1 group-hover:scale-110 transition-transform">
                                     {item.icon}
@@ -57,34 +57,32 @@ export default function TerritorialMap() {
                 </div>
 
                 {/* MAP IMAGE CONTAINER */}
-                <div className="lg:w-1/2 relative group">
+                <div className="w-full lg:w-1/2 relative group">
                     <motion.div 
                         initial={{ opacity: 0, scale: 0.9 }}
                         whileInView={{ opacity: 1, scale: 1 }}
                         transition={{ duration: 0.8 }}
                         viewport={{ once: true }}
-                        className="relative z-10 border border-armor-light p-2 bg-void shadow-[0_0_50px_rgba(0,0,0,0.5)]"
+                        className="relative z-10 border border-armor-light p-2 bg-void shadow-[0_0_50px_rgba(0,0,0,0.5)] overflow-hidden"
                     >
-                        <div className="relative aspect-[3/4] overflow-hidden">
+                        <div className="relative h-[450px] md:h-[650px] w-full overflow-hidden bg-void">
                             <Image 
                                 src="/images/mapa_territorial.jpg" 
                                 alt="Mapa Estructura Territorial UNC" 
                                 fill
-                                className="object-cover transition-transform duration-1000 group-hover:scale-105"
+                                className="object-contain transition-transform duration-1000 group-hover:scale-105"
                                 priority
                             />
                             {/* SCANLINE OVERLAY */}
                             <div className="absolute inset-0 scanline opacity-20 pointer-events-none"></div>
-                            {/* GRID OVERLAY */}
-                            <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-10 mix-blend-overlay"></div>
                         </div>
                     </motion.div>
 
-                    {/* DECORATIVE LABELS */}
-                    <div className="absolute -top-6 -right-6 font-tech text-[10px] text-blood bg-void border border-blood px-4 py-2 rotate-12 z-20 shadow-xl opacity-0 group-hover:opacity-100 transition-opacity">
+                    {/* DECORATIVE LABELS - Hidden on mobile for cleaner look */}
+                    <div className="absolute -top-4 -right-2 hidden md:block font-tech text-[10px] text-blood bg-void border border-blood px-4 py-2 rotate-12 z-20 shadow-xl group-hover:block transition-all">
                         CONFIGURACIÓN TERRITORIAL V. 2026
                     </div>
-                    <div className="absolute -bottom-10 -left-10 w-40 h-40 border-2 border-blood/20 rounded-full animate-ping pointer-events-none"></div>
+                    <div className="absolute -bottom-6 -left-6 w-32 h-32 md:w-40 md:h-40 border-2 border-blood/20 rounded-full animate-ping pointer-events-none"></div>
                 </div>
 
             </div>
