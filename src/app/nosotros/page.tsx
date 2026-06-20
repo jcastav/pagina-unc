@@ -4,6 +4,7 @@ import Footer from "@/components/Footer";
 import AboutHero from "@/components/AboutHero";
 import InstitutionalSection from "@/components/InstitutionalSection";
 import PrinciplesSection from "@/components/PrinciplesSection";
+import TerritorialMap from "@/components/TerritorialMap";
 
 export const metadata: Metadata = {
   title: "Sobre Nosotros | UNC Institucional",
@@ -47,6 +48,8 @@ export default function NosotrosPage() {
         </section>
 
         <InstitutionalSection />
+        
+        <TerritorialMap />
 
         {/* Sección: Llamado Institucional */}
         <section className="py-24 px-6 md:px-16 text-center bg-void relative scanline border-t border-armor-light">
