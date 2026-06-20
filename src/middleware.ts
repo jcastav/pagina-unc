@@ -71,13 +71,20 @@ export async function middleware(request: NextRequest) {
     return response
   }
 
-  // 2. Control de Roles (RBAC)
-  // Obtenemos el rol del perfil del usuario
+  // 2. Control de Roles (RBAC) y Seguridad
+  // Obtenemos el perfil completo para verificar baneo y rol
   const { data: profile } = await supabase
     .from('profiles')
-    .select('role')
+    .select('role, is_banned')
     .eq('id', user.id)
     .single()
+
+  // VERIFICACIÓN DE BANEO
+  if (profile?.is_banned) {
+    // Si está baneado, eliminamos la sesión y redirigimos
+    await supabase.auth.signOut()
+    return NextResponse.redirect(new URL('/login?error=banned', request.url))
+  }
 
   const role = profile?.role || 'AFILIADO'
 

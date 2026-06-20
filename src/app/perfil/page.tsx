@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
-import { User, MapPin, Phone, Shield, LogOut, Edit3, ChevronRight } from 'lucide-react';
+import { User, MapPin, Phone, Shield, LogOut, Edit3, ChevronRight, Send } from 'lucide-react';
 import ProfileEditForm from '@/components/ProfileEditForm';
 
 export default function MiCuentaPage() {
@@ -155,6 +155,29 @@ export default function MiCuentaPage() {
                 <div className="bg-armor/10 border border-armor-light p-6">
                   <span className="block font-tech text-[9px] text-steel uppercase mb-2">Artículos Publicados</span>
                   <span className="font-heavy text-xl uppercase">0</span>
+                </div>
+              </div>
+
+              {/* COMUNICACIONES INTERNAS (CHAT) */}
+              <div className="bg-armor/5 border border-armor-light p-8 mb-8 relative overflow-hidden group">
+                <div className="absolute top-0 right-0 p-6 opacity-[0.03] pointer-events-none group-hover:rotate-12 transition-transform duration-700">
+                  <Send size={120} />
+                </div>
+                <div className="relative z-10">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
+                    <h4 className="font-heavy text-xl uppercase text-white">Comunicaciones Internas</h4>
+                  </div>
+                  <p className="font-body text-gray-400 text-sm mb-6 max-w-lg">
+                    Acceda al canal de comunicación en tiempo real. Participe en las discusiones de su división y manténgase informado sobre las directrices institucionales.
+                  </p>
+                  <Link 
+                    href="/chat"
+                    className="inline-flex items-center gap-3 bg-blood text-white px-8 py-4 font-heavy text-xs uppercase tracking-widest hover:bg-white hover:text-void transition-all group/btn"
+                  >
+                    <span>Entrar al Chat de la Unidad</span>
+                    <ChevronRight size={16} className="group-hover/btn:translate-x-1 transition-transform" />
+                  </Link>
                 </div>
               </div>
 
