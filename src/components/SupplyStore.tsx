@@ -56,15 +56,6 @@ export default function SupplyStore({ products }: SupplyStoreProps) {
                         </div>
                     </motion.div>
                 </div>
-
-                {/* MOCK GRID PREVIEW */}
-                <div className="mt-24 grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-2 opacity-20 pointer-events-none grayscale hover:grayscale-0 transition-all duration-1000">
-                    {[1, 2, 3, 4, 5, 6].map(i => (
-                        <div key={i} className="aspect-square bg-armor/30 border border-armor-light flex items-center justify-center relative overflow-hidden group">
-                           <Instagram size={24} className="text-blood opacity-20" />
-                        </div>
-                    ))}
-                </div>
             </section>
         );
     }

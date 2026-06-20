@@ -83,11 +83,11 @@ export default function NewsGrid({ posts }: NewsGridProps) {
                                                 const authorNickname = Array.isArray(post.profiles)
                                                     ? post.profiles[0]?.nickname
                                                     : post.profiles?.nickname;
-                                                const finalName = authorNickname || 'MANDO CENTRAL';
+                                                const finalName = authorNickname || 'UNC';
 
                                                 return (
                                                     <Link
-                                                        href={`/perfil/${authorNickname || 'mando-central'}`}
+                                                        href={`/perfil/${authorNickname || 'unc'}`}
                                                         className="font-tech text-blood text-[8px] font-bold uppercase hover:text-white transition-colors relative z-20"
                                                     >
                                                         {finalName}
@@ -109,7 +109,7 @@ export default function NewsGrid({ posts }: NewsGridProps) {
 
                                     <Link href={`/articulos/${post.slug}`} className="mt-6 pt-4 border-t border-armor-light flex justify-between items-center group/btn">
                                         <span className="font-tech text-[9px] text-steel group-hover/btn:text-white transition-colors uppercase tracking-widest">
-                                            Analizar Datos
+                                            Leer más
                                         </span>
                                         <ArrowRight size={14} className="text-armor group-hover/btn:text-blood transition-colors group-hover/btn:translate-x-1 transition-transform" />
                                     </Link>
