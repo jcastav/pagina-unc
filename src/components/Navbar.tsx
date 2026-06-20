@@ -11,6 +11,7 @@ import {
 } from 'lucide-react';
 import { useEffect } from 'react';
 import { supabase } from '@/lib/supabaseClient';
+import DonationModal from './DonationModal';
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -43,11 +44,12 @@ export default function Navbar() {
 
   const socialLinks = [
     { name: 'Instagram', icon: Instagram, href: 'https://www.instagram.com/unionnacionalista', active: true },
-    { name: 'TikTok', icon: Music2, href: 'https://www.tiktok.com/@unionnacionalistacol?_r=1&_t=ZS-943uTZeIfyP', active: true },
+    { name: 'TikTok', icon: Music2, href: 'https://www.tiktok.com/@unc_col?_r=1&_t=ZS-95WCShvjyYK', active: true },
     { name: 'Twitter / X', icon: Twitter, href: 'https://x.com/unionnacionalco', active: true },
-    { name: 'Telegram', icon: Send, href: 'https://t.me/nacionalismoUNC', active: true },
-    { name: 'Facebook', icon: Facebook, href: 'https://www.facebook.com/UnionNacionalistaColombiana', active: true },
-    { name: 'YouTube', icon: Youtube, href: '#', active: false },
+    { name: 'Telegram (Chat)', icon: Send, href: 'https://t.me/nacionalismoUNC', active: true },
+    { name: 'Telegram (Canal)', icon: Send, href: 'https://t.me/CanalNacionalismo', active: true },
+    { name: 'Facebook', icon: Facebook, href: 'https://www.facebook.com/share/18ivaRBP22/', active: true },
+    { name: 'YouTube', icon: Youtube, href: 'https://youtube.com/@unionnacionalistacolombiana?si=Ldz0idaH3T-MMinf', active: true },
     { name: 'Threads', icon: AtSign, href: 'https://www.threads.com/@unionnacionalista', active: true },
   ];
 
@@ -155,6 +157,10 @@ export default function Navbar() {
               )}
             </AnimatePresence>
           </div>
+
+          <div className="ml-2 hidden lg:block">
+            <DonationModal />
+          </div>
         </div>
 
         {/* MOBILE TOGGLE */}
@@ -187,6 +193,10 @@ export default function Navbar() {
                   <ChevronRight size={20} className="text-armor" />
                 </Link>
               ))}
+
+              <div className="py-6 border-b border-armor/50">
+                 <DonationModal />
+              </div>
 
               {/* Botones de Cuenta en Móvil */}
               {user && (

@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import { ShoppingCart, Package, Instagram, ExternalLink, ArrowRight } from "lucide-react";
 
-const INSTAGRAM_URL = 'https://www.instagram.com/unionnacionalista_tienda?igsh=MTRhMG93MHB0cjhleg==';
+const INSTAGRAM_URL = 'https://www.instagram.com/unionnacionalista_tienda?igsh=MTZ6ZW9kbm11ZDl5MQ==';
 const WHATSAPP_NUMBER = '573000000000';
 
 interface SupplyStoreProps {

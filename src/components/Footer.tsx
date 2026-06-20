@@ -7,6 +7,7 @@ import {
   ShieldCheck, Instagram, Facebook, Twitter,
   Youtube, Send, AtSign, Music2, User, ChevronRight, LayoutDashboard
 } from "lucide-react";
+import DonationModal from "./DonationModal";
 
 export default function Footer() {
   const [user, setUser] = useState<any>(null);
@@ -39,11 +40,11 @@ export default function Footer() {
 
   const socialLinks = [
     { name: 'Instagram', icon: Instagram, href: 'https://www.instagram.com/unionnacionalista', active: true },
-    { name: 'TikTok', icon: Music2, href: 'https://www.tiktok.com/@unionnacionalistacol?_r=1&_t=ZS-943uTZeIfyP', active: true },
+    { name: 'TikTok', icon: Music2, href: 'https://www.tiktok.com/@unc_col?_r=1&_t=ZS-95WCShvjyYK', active: true },
     { name: 'Twitter / X', icon: Twitter, href: 'https://x.com/unionnacionalco', active: true },
-    { name: 'Telegram', icon: Send, href: 'https://t.me/nacionalismoUNC', active: true },
-    { name: 'Facebook', icon: Facebook, href: 'https://www.facebook.com/UnionNacionalistaColombiana', active: true },
-    { name: 'YouTube', icon: Youtube, href: '#', active: false },
+    { name: 'Telegram', icon: Send, href: 'https://t.me/CanalNacionalismo', active: true },
+    { name: 'Facebook', icon: Facebook, href: 'https://www.facebook.com/share/18ivaRBP22/', active: true },
+    { name: 'YouTube', icon: Youtube, href: 'https://youtube.com/@unionnacionalistacolombiana?si=Ldz0idaH3T-MMinf', active: true },
     { name: 'Threads', icon: AtSign, href: 'https://www.threads.com/@unionnacionalista', active: true },
   ];
 
@@ -93,6 +94,7 @@ export default function Footer() {
             <li><Link href="/articulos" className="font-heavy text-xs uppercase text-steel hover:text-white transition-colors">Informes de Prensa</Link></li>
             <li><Link href="/doctrina" className="font-heavy text-xs uppercase text-steel hover:text-white transition-colors">Nuestra Doctrina</Link></li>
             <li><Link href="/tienda" className="font-heavy text-xs uppercase text-steel hover:text-white transition-colors">Tienda</Link></li>
+            <li className="pt-2"><DonationModal /></li>
           </ul>
         </div>
 
