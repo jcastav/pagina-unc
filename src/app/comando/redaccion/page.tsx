@@ -33,8 +33,10 @@ function RedaccionContent() {
   const [category, setCategory] = useState("OPINIÓN");
   const [content, setContent] = useState("");
   const [currentImageUrl, setCurrentImageUrl] = useState<string | null>(null);
+  const [currentDocumentUrl, setCurrentDocumentUrl] = useState<string | null>(null);
   const [adminFeedback, setAdminFeedback] = useState<string | null>(null);
   const [imageFile, setImageFile] = useState<File | null>(null);
+  const [documentFile, setDocumentFile] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
 
   useEffect(() => {
@@ -66,6 +68,7 @@ function RedaccionContent() {
           setCategory(post.category);
           setContent(post.content);
           setCurrentImageUrl(post.image_url);
+          setCurrentDocumentUrl(post.document_url);
           setAdminFeedback(post.admin_feedback);
         }
       }
@@ -82,6 +85,13 @@ function RedaccionContent() {
     }
   };
 
+  const handleDocumentChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      const file = e.target.files[0];
+      setDocumentFile(file);
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setSubmitting(true);
@@ -94,6 +104,7 @@ function RedaccionContent() {
 
     try {
       let finalImageUrl = currentImageUrl;
+      let finalDocumentUrl = currentDocumentUrl;
 
       if (imageFile) {
         const fileExt = imageFile.name.split('.').pop();
@@ -113,12 +124,31 @@ function RedaccionContent() {
         finalImageUrl = publicUrl;
       }
 
+      if (category === "DOCTRINA" && documentFile) {
+        const fileExt = documentFile.name.split('.').pop();
+        const fileName = `${Date.now()}.${fileExt}`;
+        const filePath = `docs/${fileName}`;
+
+        const { error: uploadError } = await supabase.storage
+          .from('noticias')
+          .upload(filePath, documentFile);
+
+        if (uploadError) throw uploadError;
+
+        const { data: { publicUrl } } = supabase.storage
+          .from('noticias')
+          .getPublicUrl(filePath);
+
+        finalDocumentUrl = publicUrl;
+      }
+
+      const docToSave = category === "DOCTRINA" ? finalDocumentUrl : null;
       const { data: { user } } = await supabase.auth.getUser();
 
       if (editId) {
         const { error } = await supabase
           .from('posts')
-          .update({ title, content, category, image_url: finalImageUrl, status: 'PUBLICADO' })
+          .update({ title, content, category, image_url: finalImageUrl, document_url: docToSave, status: 'PUBLICADO' })
           .eq('id', editId);
         if (error) throw error;
         alert("¡ARCHIVO ACTUALIZADO CORRECTAMENTE!");
@@ -126,7 +156,7 @@ function RedaccionContent() {
         const slug = title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '');
         const { error } = await supabase
           .from('posts')
-          .insert([{ title, slug, content, category, image_url: finalImageUrl, author_id: user?.id, status: 'PUBLICADO' }]);
+          .insert([{ title, slug, content, category, image_url: finalImageUrl, document_url: docToSave, author_id: user?.id, status: 'PUBLICADO' }]);
         if (error) throw error;
         alert("¡DOCUMENTO PUBLICADO CON ÉXITO!");
       }
@@ -255,6 +285,37 @@ function RedaccionContent() {
               )}
             </div>
           </div>
+
+          {/* DOCUMENTO ADJUNTO (SOLO DOCTRINA) */}
+          {category === "DOCTRINA" && (
+            <motion.div
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="border border-armor-light bg-paper-dark/30 p-6 space-y-4"
+            >
+              <label className="font-tech text-[10px] text-steel uppercase tracking-widest flex items-center gap-2">
+                <FileText size={12} className="text-blood" />
+                Documento Teórico Adjunto (.PDF, .DOCX, .TXT, etc.)
+              </label>
+              <input
+                type="file" accept=".pdf,.doc,.docx,.txt,.odt"
+                onChange={handleDocumentChange}
+                className="w-full font-tech text-xs text-gray-500 file:mr-4 file:py-2 file:px-4 file:border-0 file:bg-armor-light file:text-white hover:file:bg-blood file:cursor-pointer file:transition-colors cursor-pointer"
+              />
+              {(currentDocumentUrl || documentFile) && (
+                <div className="text-xs font-tech text-steel flex items-center gap-2 bg-void/50 p-3 border border-armor-light">
+                  <span className="text-gray-400">Estado del archivo:</span>
+                  {documentFile ? (
+                    <span className="text-green-400 font-heavy">{documentFile.name} (LISTO PARA SUBIR)</span>
+                  ) : (
+                    <a href={currentDocumentUrl || "#"} target="_blank" rel="noopener noreferrer" className="text-blood hover:text-white font-heavy underline transition-all">
+                      VER/DESCARGAR ARCHIVO ACTUAL
+                    </a>
+                  )}
+                </div>
+              )}
+            </motion.div>
+          )}
 
           {/* EDITOR */}
           <div>

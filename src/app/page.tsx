@@ -25,6 +25,7 @@ export default async function Home() {
     .from('posts')
     .select('*, profiles(nickname)')
     .neq('category', 'OFICIAL')
+    .neq('category', 'DOCTRINA')
     .eq('status', 'PUBLICADO')
     .order('created_at', { ascending: false })
     .limit(6);
@@ -33,6 +34,8 @@ export default async function Home() {
   const { data: bitacoraLog } = await supabase
     .from('posts')
     .select('title, created_at, category, slug')
+    .neq('category', 'DOCTRINA')
+    .eq('status', 'PUBLICADO')
     .order('created_at', { ascending: false })
     .limit(8);
 

@@ -11,6 +11,7 @@ export default async function ArticulosPage() {
         .from('posts')
         .select('*, profiles(nickname)')
         .eq('status', 'PUBLICADO')
+        .neq('category', 'DOCTRINA')
         .order('created_at', { ascending: false });
 
     return (
